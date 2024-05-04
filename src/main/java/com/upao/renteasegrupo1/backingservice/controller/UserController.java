@@ -47,5 +47,31 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Map<String,String>> loginUser(@Valid @RequestBody Map<String,String> credentials) {
+        String username = credentials.get("username");
+        String password = credentials.get("password");
 
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Ingresar usuario y contraseña");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (!userService.usernameExists(username)) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Nombre de usuario no existe.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+
+        if (!userService.passwordMatches(username, password)) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Contraseña incorrecta.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Bienvenido " + username);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
