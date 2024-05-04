@@ -50,4 +50,21 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
+    //Validacion Login
+    public boolean validateLogin(String username, String password) {
+        Optional<User> usuarioOpt = userRepository.findByUsername(username);
+        if (usuarioOpt.isPresent()) {
+            User usuario = usuarioOpt.get();
+            return password.equals(usuario.getPassword());
+        }
+        return false;
+    }
+
+    public boolean passwordMatches(String username, String password) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
+            return false;
+        }
+        return user.get().getPassword().equals(password);
+    }
 }
