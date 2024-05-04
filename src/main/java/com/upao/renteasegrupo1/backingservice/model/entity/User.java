@@ -3,6 +3,7 @@ package com.upao.renteasegrupo1.backingservice.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -27,19 +28,19 @@ public class User {
     @Column(name="Apellido",nullable=false,length=100)
     private String apellido;
 
-    @Column(name = "DNI", length = 8, nullable = false, unique = true)
+    @Column(name = "DNI", nullable = false, unique = true)
     private String dni;
 
-    @Column(name = "Telefono", length = 9, nullable = false)
+    @Column(name = "Telefono", nullable = false)
     private String telefono;
 
-    @Column(unique = true, nullable = false, length = 100)
+    @Column(name ="Correo", nullable = false, length = 100)
     private String correo;
 
-    @Column(name = "Usuario", nullable = false, length = 10, unique = true)
+    @Column(name = "Usuario", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "Contraseña", nullable = false, length = 10)
+    @Column(name = "Contraseña", nullable = false)
     private String password;
 
     /*
