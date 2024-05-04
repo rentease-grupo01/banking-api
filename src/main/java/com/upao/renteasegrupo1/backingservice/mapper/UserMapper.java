@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 
@@ -20,5 +22,11 @@ public class UserMapper {
 
     public UserResponseDTO convertToDTO(User user) {
         return modelMapper.map(user, UserResponseDTO.class);
+    }
+
+    public List<UserResponseDTO> convertToListDTO(List<User> users) {
+        return users.stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 }
