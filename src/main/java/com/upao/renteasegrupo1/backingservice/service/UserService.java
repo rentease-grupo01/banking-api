@@ -67,4 +67,7 @@ public class UserService {
         }
         return user.get().getPassword().equals(password);
     }
+    public boolean idExists(Long id) {
+        return userRepository.existsById(id);
+    }
 }

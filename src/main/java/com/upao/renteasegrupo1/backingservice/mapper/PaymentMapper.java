@@ -23,7 +23,7 @@ public class PaymentMapper {
         return modelMapper.map(payment, PaymentResponseDTO.class);
     }
 
-    public List<PaymentResponseDTO> convertToDTO(List<Payment> payments) {
+    public List<PaymentResponseDTO> convertToListDTO(List<Payment> payments) {
         return payments.stream()
                 .map(this::convertToDTO)
                 .toList();
