@@ -12,5 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String username); //Validar si ya hay un usuario registrado con ese Username
     boolean existsByDni(String dni); //Validar si ya hay un usuario registrado con ese DNI
-    boolean existsByTelefono(String telefono); //Validar si ya hay un usuario registrado con ese numero de Telefono
+    boolean existsByTelefono(String telefono);//Validar si ya hay un usuario registrado con ese numero de Telefono
 }

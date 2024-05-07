@@ -16,4 +16,5 @@ public class PaymentRequestDTO {
     private String metodoDePago;
     @NotBlank(message = "No se obtuvo la fecha actual.")
     private LocalDate fecha;
+
 }
