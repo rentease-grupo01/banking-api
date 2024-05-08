@@ -4,6 +4,7 @@ import com.upao.renteasegrupo1.backingservice.exception.ResourceNotFoundExceptio
 import com.upao.renteasegrupo1.backingservice.mapper.UserMapper;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserRequestDTO;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserResponseDTO;
+import com.upao.renteasegrupo1.backingservice.model.entity.Review;
 import com.upao.renteasegrupo1.backingservice.model.entity.User;
 import com.upao.renteasegrupo1.backingservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -94,4 +95,21 @@ public class UserService {
         return userMapper.convertToDTO(usuarioActualizado);
     }
 
+        public List<Review> getReviewsByUserId(Long userId) {
+        return userRepository.findById(userId)
+                .map(User::getReviews)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el ID: " + userId));
+    }
+
+    public double calculateAverageRating(Long userId) {
+        List<Review> reviews = getReviewsByUserId(userId);
+        if (reviews.isEmpty()) {
+            return 0.0;
+        }
+        double sum = 0.0;
+        for (Review review : reviews) {
+            sum += review.getRating();
+        }
+        return sum / reviews.size();
+    }
 }

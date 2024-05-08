@@ -88,5 +88,11 @@ public class UserController {
         UserResponseDTO usuarioActualizadoDTO = userService.editarPerfilUsuario(id, userRequestDTO);
         return ResponseEntity.ok(usuarioActualizadoDTO);
     }
+    @GetMapping("/{userId}/profile")
+    public ResponseEntity<UserResponseDTO> getUserProfile(@PathVariable Long userId) {
+        UserResponseDTO userResponseDTO = userService.getUserById(userId);
+        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+    }
+
 
 }
