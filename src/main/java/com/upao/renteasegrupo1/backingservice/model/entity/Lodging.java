@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name="Lodgings")
 @Data
@@ -20,15 +22,18 @@ public class Lodging {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @JoinColumn
+    @ManyToOne
+    private User user;
 
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "capacity", nullable = false)
-    private int capacity;
     @Column(name = "location", nullable = false)
     private String location;
+    @Column(name="price", nullable=false)
+    private BigDecimal price;
 
 
 }

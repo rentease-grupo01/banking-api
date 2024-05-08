@@ -7,12 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LodgingReportDTO {
     private String title;
     private String description;
-    private int capacity;
     private String location;
+    private BigDecimal price;
 }
