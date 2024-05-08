@@ -4,6 +4,8 @@ import com.upao.renteasegrupo1.backingservice.model.dto.UserRequestDTO;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserResponseDTO;
 import com.upao.renteasegrupo1.backingservice.model.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
