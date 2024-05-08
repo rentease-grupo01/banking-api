@@ -26,8 +26,7 @@ public class LodgingService {
 
     @Transactional
     public LodgingResponseDTO createLodging(LodgingRequestDTO lodgingRequestDTO, List<MultipartFile> images, MultipartFile video) throws IOException {
-        // Lógica para validar campos y procesar archivos de imágenes y video
-        // (Omitida por brevedad)
+
 
         Lodging lodging = lodgingMapper.convertToEntity(lodgingRequestDTO);
         Lodging savedLodging = lodgingRepository.save(lodging);
