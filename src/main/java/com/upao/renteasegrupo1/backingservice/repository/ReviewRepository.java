@@ -1,4 +1,12 @@
 package com.upao.renteasegrupo1.backingservice.repository;
 
-public interface ReviewRepository {
+import com.upao.renteasegrupo1.backingservice.model.entity.Review;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+    List<Review> findByUserId(Long userId);
 }
