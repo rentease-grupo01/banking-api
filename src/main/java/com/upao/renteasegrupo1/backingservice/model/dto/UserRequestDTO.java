@@ -9,10 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UserRequestDTO {
 
     @NotBlank(message = "Ingrese Apellido")
