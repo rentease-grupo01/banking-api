@@ -70,4 +70,28 @@ public class UserService {
     public boolean idExists(Long id) {
         return userRepository.existsById(id);
     }
+
+    public UserResponseDTO editarPerfilUsuario(Long id, UserRequestDTO userRequestDTO) {
+        // Verificar si el usuario existe
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el ID: " + id));
+
+        // Actualizar los datos del usuario solo si están presentes en el DTO
+        if (userRequestDTO.getUsername() != null) {
+            user.setUsername(userRequestDTO.getUsername());
+        }
+        if (userRequestDTO.getEmail() != null) {
+            user.setCorreo(userRequestDTO.getEmail());
+        }
+        if (userRequestDTO.getTelefono() != null) {
+            user.setTelefono(userRequestDTO.getTelefono());
+        }
+
+        // Guardar los cambios en la base de datos
+        User usuarioActualizado = userRepository.save(user);
+
+        // Convertir el usuario actualizado a un DTO y devolverlo
+        return userMapper.convertToDTO(usuarioActualizado);
+    }
+
 }
