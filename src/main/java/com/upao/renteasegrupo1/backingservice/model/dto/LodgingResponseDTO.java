@@ -15,6 +15,5 @@ public class LodgingResponseDTO {
     private long id;
     private String title;
     private String description;
-    private int capacity;
     private String location;
 }
