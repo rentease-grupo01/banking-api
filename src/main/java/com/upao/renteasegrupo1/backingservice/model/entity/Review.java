@@ -19,10 +19,15 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "title_review", nullable = false)
     private String title_review;
 
     @Column(name = "description_review", nullable = false)
     private String description_review;
+
+    private int rating;
 }
