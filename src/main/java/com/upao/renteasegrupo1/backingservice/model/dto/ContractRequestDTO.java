@@ -16,5 +16,5 @@ public class ContractRequestDTO {
     @NotNull(message = "La fecha de término no puede ser nula")
     private LocalDate endDate;
 
-    private String status = "Pendientte";//Pendiente es un estado predeterminado
+    private String status = "Pendiente";//Pendiente es un estado predeterminado
 }
