@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.upao.renteasegrupo1.backingservice.mapper.UserMapper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
@@ -74,4 +76,17 @@ public class UserController {
         response.put("message", "Bienvenido " + username);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}/perfil")
+    public ResponseEntity<UserResponseDTO> editarPerfilUsuario(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO) {
+        // Verificar si el usuario existe
+        if (!userService.idExists(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Actualizar el perfil del usuario
+        UserResponseDTO usuarioActualizadoDTO = userService.editarPerfilUsuario(id, userRequestDTO);
+        return ResponseEntity.ok(usuarioActualizadoDTO);
+    }
+
 }
