@@ -28,5 +28,14 @@ public class LodgingController {
         List<LodgingResponseDTO> lodgings = lodgingService.findLodgingsByTitle(title);
         return new ResponseEntity<>(lodgings, HttpStatus.OK);
     }
+
+    @GetMapping("/my-lodgings")
+    public ResponseEntity<List<LodgingResponseDTO>> getMyLodgings() {
+        List<LodgingResponseDTO> myLodgings = lodgingService.getMyLodgings();
+        if (myLodgings.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Escenario Alternativo 1: No hay publicaciones activas
+        }
+        return new ResponseEntity<>(myLodgings, HttpStatus.OK); // Escenario Exitoso: Lista de publicaciones
+    }
 }
 

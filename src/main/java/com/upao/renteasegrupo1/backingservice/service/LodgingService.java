@@ -39,5 +39,11 @@ public class LodgingService {
                 .map(lodgingMapper::convertToDTO)
                 .collect(Collectors.toList());
     }
+    public List<LodgingResponseDTO> getMyLodgings() {
+        List<Lodging> myLodgings = lodgingRepository.findAll(); // Obtener todas las publicaciones de alojamiento
+        return myLodgings.stream()
+                .map(lodgingMapper::convertToDTO)
+                .collect(Collectors.toList());
+    }
 }
 
