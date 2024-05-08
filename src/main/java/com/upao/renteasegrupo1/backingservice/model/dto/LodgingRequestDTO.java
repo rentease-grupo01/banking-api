@@ -16,8 +16,6 @@ public class LodgingRequestDTO {
     private String title;
     @NotBlank(message="La descripción no puede estar vacía")
     private String description;
-    @NotNull(message = "La capacidad no puede estar vacía")
-    @Pattern(regexp = "[0-9]+", message = "Solo pueden ingresarse números")
-    private int capacity;
+    @NotBlank(message = "La ubicación no puede estar vacía")
     private String location;
 }
