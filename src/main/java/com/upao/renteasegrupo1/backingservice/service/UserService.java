@@ -4,6 +4,7 @@ import com.upao.renteasegrupo1.backingservice.exception.ResourceNotFoundExceptio
 import com.upao.renteasegrupo1.backingservice.mapper.UserMapper;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserRequestDTO;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserResponseDTO;
+import com.upao.renteasegrupo1.backingservice.model.entity.Review;
 import com.upao.renteasegrupo1.backingservice.model.entity.User;
 import com.upao.renteasegrupo1.backingservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -86,5 +87,49 @@ public class UserService {
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    public boolean idExists(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    public UserResponseDTO editarPerfilUsuario(Long id, UserRequestDTO userRequestDTO) {
+        // Verificar si el usuario existe
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el ID: " + id));
+
+        // Actualizar los datos del usuario solo si están presentes en el DTO
+        if (userRequestDTO.getUsername() != null) {
+            user.setUsername(userRequestDTO.getUsername());
+        }
+        if (userRequestDTO.getEmail() != null) {
+            user.setCorreo(userRequestDTO.getEmail());
+        }
+        if (userRequestDTO.getTelefono() != null) {
+            user.setTelefono(userRequestDTO.getTelefono());
+        }
+
+        // Guardar los cambios en la base de datos
+        User usuarioActualizado = userRepository.save(user);
+
+        // Convertir el usuario actualizado a un DTO y devolverlo
+        return userMapper.convertToDTO(usuarioActualizado);
+    }
+
+        public List<Review> getReviewsByUserId(Long userId) {
+        return userRepository.findById(userId)
+                .map(User::getReviews)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el ID: " + userId));
+    }
+
+    public double calculateAverageRating(Long userId) {
+        List<Review> reviews = getReviewsByUserId(userId);
+        if (reviews.isEmpty()) {
+            return 0.0;
+        }
+        double sum = 0.0;
+        for (Review review : reviews) {
+            sum += review.getRating();
+        }
+        return sum / reviews.size();
     }
 }

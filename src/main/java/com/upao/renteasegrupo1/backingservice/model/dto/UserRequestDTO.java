@@ -9,10 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UserRequestDTO {
 
     @NotBlank(message = "Ingrese Apellido")
@@ -23,6 +24,7 @@ public class UserRequestDTO {
 
     @Email(message = "Correo No valido")
     @NotBlank(message = "Correo vacio")
+    @Email
     private String email;
 
     @Pattern(regexp = "[1-9][0-9]{0,8}")

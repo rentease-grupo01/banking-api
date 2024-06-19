@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+import java.util.List;
+
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,8 +41,13 @@ public class User {
     @Column(name = "Contraseña", nullable = false)
     private String password;
 
+
     @Enumerated(EnumType.STRING)
     @Column(name = "Role", nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
 
 }
