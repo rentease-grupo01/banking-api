@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -40,5 +41,6 @@ public class LodgingMapper {
         reportDTO.setPrice((BigDecimal) lodgingData[3]);
         return reportDTO;
     }
+
 }
 
