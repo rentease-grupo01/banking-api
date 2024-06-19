@@ -1,10 +1,6 @@
 package com.upao.renteasegrupo1.backingservice.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -45,12 +41,13 @@ public class User {
     @Column(name = "Contraseña", nullable = false)
     private String password;
 
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Role", nullable = false)
+    private Role role;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "Rol", nullable = false)
-    private Role role;
-    */
+
 }
