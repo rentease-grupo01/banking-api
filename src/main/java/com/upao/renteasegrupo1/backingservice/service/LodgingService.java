@@ -62,6 +62,12 @@ public class LodgingService {
                 .map(lodgingMapper::convertToDTO)
                 .collect(Collectors.toList());
     }
+    public void deleteLodging(Long id) {
+        Lodging lodging = lodgingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el alojamiento con ID: " + id));
+
+        lodgingRepository.delete(lodging);
+    }
 
 }
 

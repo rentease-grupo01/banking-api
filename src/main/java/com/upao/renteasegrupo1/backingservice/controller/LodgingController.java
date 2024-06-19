@@ -47,5 +47,10 @@ public class LodgingController {
         LodgingResponseDTO updatedLodging = lodgingService.editLodging(id, lodgingRequestDTO);
         return new ResponseEntity<>(updatedLodging, HttpStatus.OK);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteLodging(@PathVariable Long id) {
+        lodgingService.deleteLodging(id);
+        return ResponseEntity.ok("El alojamiento ha sido eliminado exitosamente");
+    }
 }
 
