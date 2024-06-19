@@ -27,17 +27,30 @@ public class UserService {
 
     public UserResponseDTO getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Cuenta no encontrada con el ID: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con el ID: " + id));
         return userMapper.convertToDTO(user);
     }
 
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
+        validateUserRequest(userRequestDTO);
         User user = userMapper.convertToEntity(userRequestDTO);
         user = userRepository.save(user);
         return userMapper.convertToDTO(user);
     }
 
-    //Validacion para la creacion de una cuenta
+    // Validación para la creación de una cuenta
+    public void validateUserRequest(UserRequestDTO userRequestDTO) {
+        if (dniExists(userRequestDTO.getDni())) {
+            throw new IllegalArgumentException("Numero de DNI ya ha sido registrado");
+        }
+        if (cellNumberExists(userRequestDTO.getTelefono())) {
+            throw new IllegalArgumentException("Numero de telefono ya ha sido registrado");
+        }
+        if (usernameExists(userRequestDTO.getUsername())) {
+            throw new IllegalArgumentException("Nombre de Usuario existente, por favor usar otro");
+        }
+    }
+
     public boolean dniExists(String dni) {
         return userRepository.existsByDni(dni);
     }
@@ -50,21 +63,28 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
-    //Validacion Login
-    public boolean validateLogin(String username, String password) {
-        Optional<User> usuarioOpt = userRepository.findByUsername(username);
-        if (usuarioOpt.isPresent()) {
-            User usuario = usuarioOpt.get();
-            return password.equals(usuario.getPassword());
+    // Validación Login
+    public void validateLoginRequest(String username, String password) {
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+            throw new IllegalArgumentException("Ingresar usuario y contraseña");
         }
-        return false;
+
+        if (!usernameExists(username)) {
+            throw new IllegalArgumentException("Nombre de usuario no existe.");
+        }
+
+        if (!passwordMatches(username, password)) {
+            throw new IllegalArgumentException("Contraseña incorrecta.");
+        }
     }
 
     public boolean passwordMatches(String username, String password) {
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isEmpty()) {
-            return false;
-        }
-        return user.get().getPassword().equals(password);
+        return userRepository.findByUsername(username)
+                .map(user -> user.getPassword().equals(password))
+                .orElse(false);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

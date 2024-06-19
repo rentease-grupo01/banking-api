@@ -1,5 +1,6 @@
 package com.upao.renteasegrupo1.backingservice.model.dto;
 
+import com.upao.renteasegrupo1.backingservice.model.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -38,4 +39,6 @@ public class UserRequestDTO {
     @NotBlank(message = "La contraseña no puede estar vacio")
     @Size(min = 8, message = "Contraseña no cumple con la cantidad mínima de caracteres")
     private String password;
+
+    private Role role;
 }
