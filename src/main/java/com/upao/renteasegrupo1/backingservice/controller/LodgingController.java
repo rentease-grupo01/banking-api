@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -51,6 +52,27 @@ public class LodgingController {
     public ResponseEntity<String> deleteLodging(@PathVariable Long id) {
         lodgingService.deleteLodging(id);
         return ResponseEntity.ok("El alojamiento ha sido eliminado exitosamente");
+    }
+    @GetMapping("/search-with-filters")
+    public ResponseEntity<List<LodgingResponseDTO>> searchLodgingsWithFilters(
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) BigDecimal maxPrice) {
+        List<LodgingResponseDTO> lodgings;
+        if (location != null && maxPrice != null) {
+            lodgings = lodgingService.findLodgingsWithFilters(location, maxPrice);
+        } else if (location != null) {
+            lodgings = lodgingService.findLodgingsByLocation(location);
+        } else if (maxPrice != null) {
+            lodgings = lodgingService.findLodgingsByMaxPrice(maxPrice);
+        } else {
+            lodgings = lodgingService.getMyLodgings(); // Otra opción por defecto si no se especifican filtros
+        }
+
+        if (lodgings.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Escenario Alternativo 1: No hay resultados
+        }
+
+        return new ResponseEntity<>(lodgings, HttpStatus.OK); // Escenario Exitoso: Resultados encontrados
     }
 }
 
