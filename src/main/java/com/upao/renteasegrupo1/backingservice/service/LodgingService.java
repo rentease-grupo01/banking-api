@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -67,6 +68,24 @@ public class LodgingService {
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el alojamiento con ID: " + id));
 
         lodgingRepository.delete(lodging);
+    }
+    public List<LodgingResponseDTO> findLodgingsWithFilters(String location, BigDecimal maxPrice) {
+        List<Lodging> lodgings = lodgingRepository.findByLocationAndPriceLessThanEqual(location, maxPrice);
+        return lodgings.stream()
+                .map(lodgingMapper::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    public List<LodgingResponseDTO> findLodgingsByMaxPrice(BigDecimal maxPrice) {
+        List<Lodging> lodgings = lodgingRepository.findByPriceLessThanEqual(maxPrice);
+        return lodgings.stream()
+                .map(lodgingMapper::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    public List<LodgingResponseDTO> findLodgingsByLocation(String location) {
+        List<Lodging> lodgings = lodgingRepository.findByLocationIgnoreCase(location);
+        return lodgings.stream()
+                .map(lodgingMapper::convertToDTO)
+                .collect(Collectors.toList());
     }
 
 }
