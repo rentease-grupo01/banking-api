@@ -13,3 +13,5 @@ public class RatingResponseDTO {
     private int score;
     private String comment;
 }
+
+/*hecho*/
