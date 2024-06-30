@@ -53,4 +53,6 @@ public class User {
     @JoinColumn(name = "Rol", nullable = false)
     private Role role;
     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Contract> contracts; // Relación con contratos
 }

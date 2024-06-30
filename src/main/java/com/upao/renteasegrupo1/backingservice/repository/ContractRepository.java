@@ -18,4 +18,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     // Métodos para encontrar contratos por fecha exacta de inicio y término
     List<Contract> findByStartDate(LocalDate startDate);
     List<Contract> findByEndDate(LocalDate endDate);
+
+    List<Contract> findByUserId(long id);
+
+    List<Contract> findByPaymentStatusAndEndDateAfter(String paymentStatus, LocalDate endDate);
 }

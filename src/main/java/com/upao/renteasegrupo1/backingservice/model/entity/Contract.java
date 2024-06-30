@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -24,4 +26,12 @@ public class Contract {
 
     @Column(name = "Status", nullable = false)
     private String status; // Estado del contrato
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(name = "PaymentStatus", nullable = false)
+    private String paymentStatus;
+
 }
