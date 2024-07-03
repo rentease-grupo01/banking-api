@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,6 +54,9 @@ public class LodgingService {
 
     public List<LodgingResponseDTO> findLodgingsByTitle(String title) {
         List<Lodging> lodgings = lodgingRepository.findByTitleContainingIgnoreCase(title);
+        if (lodgings == null || lodgings.isEmpty()) {
+            return Collections.emptyList(); // Devolver una lista vacía si no hay resultados
+        }
         return lodgings.stream()
                 .map(lodgingMapper::convertToDTO)
                 .collect(Collectors.toList());

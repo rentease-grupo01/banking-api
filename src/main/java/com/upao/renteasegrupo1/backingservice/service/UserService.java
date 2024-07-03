@@ -2,6 +2,7 @@ package com.upao.renteasegrupo1.backingservice.service;
 
 import com.upao.renteasegrupo1.backingservice.exception.ResourceNotFoundException;
 import com.upao.renteasegrupo1.backingservice.mapper.UserMapper;
+import com.upao.renteasegrupo1.backingservice.model.dto.ComunityRequestDTO;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserRequestDTO;
 import com.upao.renteasegrupo1.backingservice.model.dto.UserResponseDTO;
 import com.upao.renteasegrupo1.backingservice.model.entity.Review;

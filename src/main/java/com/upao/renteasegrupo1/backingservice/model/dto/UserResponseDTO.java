@@ -23,5 +23,13 @@ public class UserResponseDTO {
     private String password;
     private List<ReviewResponseDTO> review;
     private double averageRating;
+    private String role;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
 }

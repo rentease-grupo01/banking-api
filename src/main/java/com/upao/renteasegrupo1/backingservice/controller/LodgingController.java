@@ -27,6 +27,7 @@ public class LodgingController {
     }
 
 
+
     @GetMapping("/search")
     public ResponseEntity<List<LodgingResponseDTO>> searchLodgingsByTitle(@RequestParam String title) {
         List<LodgingResponseDTO> lodgings = lodgingService.findLodgingsByTitle(title);

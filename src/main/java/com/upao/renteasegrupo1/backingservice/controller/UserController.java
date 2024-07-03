@@ -72,7 +72,4 @@ public class UserController {
         UserResponseDTO userResponseDTO = userService.getUserById(userId);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }
-
-
-=
 }

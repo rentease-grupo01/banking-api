@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,6 @@ public class LodgingRequestDTO {
     private String description;
     @NotBlank(message = "La ubicación no puede estar vacía")
     private String location;
+    @NotBlank(message = "El precio no puede estar vacío")
+    private BigDecimal price;
 }
